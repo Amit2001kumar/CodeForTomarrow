@@ -1,21 +1,15 @@
-// serviceController.ts
-
 import { Request, Response } from 'express';
 import { Service } from '../models/serviceModel';
 
-// Controller function to create a new service
-// Controller function to add a service to a category
 export const addServiceToCategory = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.params;
     const { serviceName, type, priceOptions } = req.body;
 
-    // Check if all required fields are provided
     if (!categoryId || !serviceName || !type || !priceOptions) {
       return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Create the service in the database
     const newService = await Service.create({
       categoryId,
       serviceName,
@@ -35,7 +29,6 @@ export const getAllServices = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.params;
 
-    // Get all services for the specified category
     const services = await Service.findAll({ where: { categoryId } });
 
     res.status(200).json({ services });
@@ -50,7 +43,6 @@ export const removeService = async (req: Request, res: Response) => {
   try {
     const { categoryId, serviceId } = req.params;
 
-    // Remove the service
     await Service.destroy({ where: { id: serviceId, categoryId } });
 
     res.status(200).json({ message: 'Service removed successfully' });
@@ -66,7 +58,6 @@ export const updateService = async (req: Request, res: Response) => {
     const { categoryId, serviceId } = req.params;
     const { serviceName, type, priceOptions } = req.body;
 
-    // Update the service
     const [updatedRows] = await Service.update(
       { serviceName, type, priceOptions },
       { where: { id: serviceId, categoryId } }

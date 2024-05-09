@@ -1,9 +1,6 @@
-// authModel.ts
-
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../database/database'; // Import the Sequelize instance
+import { sequelize } from '../database/database'; 
 
-// Define the User model
 class User extends Model {
   public id!: number;
   public email!: string;
@@ -12,7 +9,6 @@ class User extends Model {
   public readonly updatedAt!: Date;
 }
 
-// Initialize the User model with attributes and options
 User.init(
   {
     id: {
@@ -31,9 +27,9 @@ User.init(
     },
   },
   {
-    sequelize, // Pass the Sequelize instance
-    modelName: 'User', // Set the model name
-    tableName: 'UserList', // Set the table name (optional)
+    sequelize, 
+    modelName: 'User', 
+    tableName: 'UserList', 
   }
 );
 

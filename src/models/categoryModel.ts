@@ -1,9 +1,6 @@
-// categoryModel.ts
-
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../database/database'; // Assuming you have a Sequelize instance named 'sequelize'
+import { sequelize } from '../database/database';
 
-// Define the Category model
 class Category extends Model {
   public id!: number;
   public categoryName!: string;
@@ -22,10 +19,10 @@ Category.init(
     },
   },
   {
-    sequelize, // Pass the Sequelize instance
-    modelName: 'Category', // Set the model name
-    tableName: 'categories', // Set the table name (optional)
-    timestamps: false, // Disable automatic management of createdAt and updatedAt columns
+    sequelize,
+    modelName: 'Category',
+    tableName: 'categories',
+    timestamps: false,
   }
 );
 

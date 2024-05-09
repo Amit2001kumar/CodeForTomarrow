@@ -1,20 +1,16 @@
-// serviceModel.ts
-
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../database/database'; // Assuming you have a Sequelize instance named 'sequelize'
+import { sequelize } from '../database/database';
 
-// Define the Service model
 class Service extends Model {
   public id!: number;
   public categoryId!: number;
   public serviceName!: string;
   public type!: string;
-  public priceOptions!: string; // Assuming priceOptions is a JSON string representing an array of price options
-  public readonly createdAt!: Date; // Add createdAt field
-  public readonly updatedAt!: Date; // Add updatedAt field
+  public priceOptions!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
 
-// Initialize the Service model with attributes and options
 Service.init(
   {
     id: {
@@ -37,7 +33,6 @@ Service.init(
     priceOptions: {
       type: DataTypes.STRING,
       allowNull: false,
-      // Add validation or JSON parsing logic if necessary
     },
     createdAt: {
       type: DataTypes.DATE,
@@ -51,10 +46,10 @@ Service.init(
     },
   },
   {
-    sequelize, // Pass the Sequelize instance
-    modelName: 'Service', // Set the model name
-    tableName: 'services', // Set the table name (optional)
-    timestamps: false, // Disable automatic management of createdAt and updatedAt columns
+    sequelize,
+    modelName: 'Service',
+    tableName: 'services',
+    timestamps: false,
   }
 );
 
