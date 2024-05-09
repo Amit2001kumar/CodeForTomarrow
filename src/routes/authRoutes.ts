@@ -1,19 +1,22 @@
 // authRoutes.ts
 
-import express, { Request, Response } from 'express';
-import { register, login, updateUser, deleteUser } from '../controllers/authController';
-import { authMiddleware } from '../middleware/authMiddleware';
+import express from 'express';
+import { register, updateUser, deleteUser, login } from '../controllers/authController';
 
 const router = express.Router();
 
-// Route to register a new user
+// Register route
 router.post('/register', register);
 
-// Route to login (generate token)
+// Update user details route
+router.put('/user/:userId', updateUser);
+
+// Delete user account route
+router.delete('/user/:userId', deleteUser);
+
+// Login route
 router.post('/login', login);
 
-// Protected routes (require authentication middleware)
-router.put('/update/:userId', authMiddleware, updateUser);
-router.delete('/delete/:userId', authMiddleware, deleteUser);
-
+// export default router;
 export { router as authRouter};
+

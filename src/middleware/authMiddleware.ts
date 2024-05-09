@@ -3,19 +3,23 @@ import jwt from 'jsonwebtoken';
 import { config } from '../../config/config';
 
 // Define a custom interface extending Request to include userId property
-interface AuthenticatedRequest extends Request {
-  userId?: string; // Define userId property as optional
-}
+type AuthenticatedRequest = Request & { userId?: string };
 
 // Middleware function to authenticate requests
 const authMiddleware = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  // Get the token from the request headers
-  const token = req.header('Authorization');
+  
+  const authHeader = req.headers.authorization;
 
-  // Check if token is missing
-  if (!token) {
-    return res.status(401).json({ message: 'Access denied. Token missing.' });
+  // Check if Authorization header is missing or does not start with 'Bearer '
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Access denied. Bearer token missing.' });
   }
+  
+  // Extract the token from the Authorization header
+  const token = authHeader.split(' ')[1];
+  
+  // Continue with token verification and processing
+  
 
   try {
     // Verify the token

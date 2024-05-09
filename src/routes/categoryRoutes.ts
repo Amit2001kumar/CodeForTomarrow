@@ -1,21 +1,29 @@
 // src/routes/categoryRoutes.ts
 
+// categoryRoutes.ts
+
 import express from 'express';
-import { createCategory, getAllCategories, updateCategory, removeCategory } from '../controllers/categoryController';
+import { createCategory, getAllCategories, updateCategory, removeEmptyCategory } from '../controllers/categoryController';
 import { authMiddleware } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-// POST /category - Create a new category
-router.post('/', authMiddleware, createCategory);
+// Middleware to authenticate requests
+router.use(authMiddleware);
 
-// GET /categories - Get all categories
+// Create category route
+router.post('/', createCategory);
+
+// Get all categories route
 router.get('/', getAllCategories);
 
-// PUT /category/:categoryId - Update a category by ID
-router.put('/:categoryId', authMiddleware, updateCategory);
+// Update category route
+router.put('/:categoryId', updateCategory);
 
-// DELETE /category/:categoryId - Remove an empty category by ID
-router.delete('/:categoryId', authMiddleware, removeCategory);
+// Remove category route
+router.delete('/:categoryId', removeEmptyCategory);
+
+// export default router;
+
 
 export { router as categoryRouter };

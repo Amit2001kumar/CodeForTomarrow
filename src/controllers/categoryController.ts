@@ -1,5 +1,8 @@
+// categoryController.ts
+
 import { Request, Response } from 'express';
 import { Category } from '../models/categoryModel';
+import { Service } from '../models/serviceModel';
 
 // Controller function to create a new category
 export const createCategory = async (req: Request, res: Response) => {
@@ -37,7 +40,7 @@ export const getAllCategories = async (req: Request, res: Response) => {
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const { categoryName } = req.body;
-    const { categoryId } = req.params;
+    const categoryId = parseInt(req.params.categoryId, 10);
 
     // Check if categoryName is provided
     if (!categoryName) {
@@ -53,19 +56,25 @@ export const updateCategory = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'Category updated successfully' });
   } catch (error) {
-    console.error(error);
+    console.error('Error updating category:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
 // Controller function to remove a category by ID
-export const removeCategory = async (req: Request, res: Response) => {
+export const removeEmptyCategory = async (req: Request, res: Response) => {
   try {
     const { categoryId } = req.params;
 
     // Check if categoryId is provided
     if (!categoryId) {
       return res.status(400).json({ message: 'Category ID is required' });
+    }
+
+    // Check if the category has associated services
+    const serviceCount = await Service.count({ where: { categoryId } });
+    if (serviceCount > 0) {
+      return res.status(400).json({ message: 'Cannot delete category with associated services' });
     }
 
     // Remove the category

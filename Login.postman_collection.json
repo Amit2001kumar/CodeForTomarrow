@@ -72,7 +72,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjY4ODA3LCJleHAiOjE3MTUyNzI0MDd9.uwqZjiA078VwPB6GXx_rwi0lGkcsrxUzOpoDiqIDbqI",
 							"type": "string"
 						}
 					]
@@ -81,7 +81,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"categoryName\": \"Electronics\",\r\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjAxMTMzLCJleHAiOjE3MTUyMDQ3MzN9.KfjDC3ae5f7krHc9jn0nQtr7ku8f6uCJNUar6ExBNmQ\"\r\n}\r\n",
+					"raw": "{\r\n    \"categoryName\": \"Electronics\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -97,6 +97,248 @@
 					"port": "3000",
 					"path": [
 						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/category",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjY4ODA3LCJleHAiOjE3MTUyNzI0MDd9.uwqZjiA078VwPB6GXx_rwi0lGkcsrxUzOpoDiqIDbqI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/category",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/category/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjY4ODA3LCJleHAiOjE3MTUyNzI0MDd9.uwqZjiA078VwPB6GXx_rwi0lGkcsrxUzOpoDiqIDbqI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryName\": \"New Category Name\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/category/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/category/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjY4ODA3LCJleHAiOjE3MTUyNzI0MDd9.uwqZjiA078VwPB6GXx_rwi0lGkcsrxUzOpoDiqIDbqI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/category/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"category",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/service/1/service",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjcyNTgwLCJleHAiOjE3MTUyNzYxODB9.jJyGnos0dFT2TKjllK0rl16cLbwMrLwvLK65HU3mlCw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serviceName\": \"Service Name\",\r\n    \"type\": \"Type of Service\",\r\n    \"priceOptions\": \"Duration 1: Price 1 (Type 1), Duration 2: Price 2 (Type 2)\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/service/1/service",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service",
+						"1",
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/service/1/services",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjcyNTgwLCJleHAiOjE3MTUyNzYxODB9.jJyGnos0dFT2TKjllK0rl16cLbwMrLwvLK65HU3mlCw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/service/1/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service",
+						"1",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/service/1/service/2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjcyNTgwLCJleHAiOjE3MTUyNzYxODB9.jJyGnos0dFT2TKjllK0rl16cLbwMrLwvLK65HU3mlCw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/service/1/service/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service",
+						"1",
+						"service",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/service/1/service/4",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzE1MjcyNTgwLCJleHAiOjE3MTUyNzYxODB9.jJyGnos0dFT2TKjllK0rl16cLbwMrLwvLK65HU3mlCw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"serviceName\": \"Updated Service Name\",\r\n    \"type\": \"Updated Type of Service\",\r\n    \"priceOptions\": \"Updated Duration 1: Updated Price 1 (Updated Type 1), Updated Duration 2: Updated Price 2 (Updated Type 2)\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/service/1/service/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service",
+						"1",
+						"service",
+						"4"
 					]
 				}
 			},

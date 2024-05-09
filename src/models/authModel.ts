@@ -1,4 +1,4 @@
-// authModels.ts
+// authModel.ts
 
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../database/database'; // Import the Sequelize instance

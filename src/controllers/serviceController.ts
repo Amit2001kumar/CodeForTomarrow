@@ -1,89 +1,84 @@
-// src/controllers/serviceController.ts
+// serviceController.ts
 
 import { Request, Response } from 'express';
-import { executeQuery } from '../database/database';
+import { Service } from '../models/serviceModel';
 
 // Controller function to create a new service
-export const createService = async (req: Request, res: Response) => {
+// Controller function to add a service to a category
+export const addServiceToCategory = async (req: Request, res: Response) => {
   try {
-    // Extract service data from request body
-    const { categoryId, serviceName, type, priceOptions } = req.body;
-
-    // Perform validation of input data
-    // Your validation logic goes here
-
-    // Example SQL query to insert a new service into the database
-    const query = `INSERT INTO services (categoryId, serviceName, type) 
-                   VALUES (${categoryId}, '${serviceName}', '${type}')`;
-
-    // Execute the SQL query
-    await executeQuery(query);
-
-    res.status(201).json({ message: 'Service created successfully' });
-  } catch (error) {
-    console.error('Error creating service:', error);
-    res.status(500).json({ message: 'Failed to create service' });
-  }
-};
-
-// Controller function to retrieve all services
-export const getAllServices = async (req: Request, res: Response) => {
-  try {
-    // Example SQL query to retrieve all services from the database
-    const query = 'SELECT * FROM services';
-
-    // Execute the SQL query
-    const services = await executeQuery(query);
-
-    res.json({ services });
-  } catch (error) {
-    console.error('Error fetching services:', error);
-    res.status(500).json({ message: 'Failed to fetch services' });
-  }
-};
-
-// Controller function to update a service
-export const updateService = async (req: Request, res: Response) => {
-  try {
-    // Extract service ID from request parameters
-    const { serviceId } = req.params;
-
-    // Extract updated service data from request body
+    const { categoryId } = req.params;
     const { serviceName, type, priceOptions } = req.body;
 
-    // Perform validation of input data
-    // Your validation logic goes here
+    // Check if all required fields are provided
+    if (!categoryId || !serviceName || !type || !priceOptions) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
 
-    // Example SQL query to update a service in the database
-    const query = `UPDATE services 
-                   SET serviceName = '${serviceName}', type = '${type}'
-                   WHERE id = ${serviceId}`;
+    // Create the service in the database
+    const newService = await Service.create({
+      categoryId,
+      serviceName,
+      type,
+      priceOptions,
+    });
 
-    // Execute the SQL query
-    await executeQuery(query);
-
-    res.json({ message: 'Service updated successfully' });
+    res.status(201).json({ message: 'Service added successfully', service: newService });
   } catch (error) {
-    console.error('Error updating service:', error);
-    res.status(500).json({ message: 'Failed to update service' });
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-// Controller function to delete a service
-export const deleteService = async (req: Request, res: Response) => {
+// Controller function to get a list of all services inside a category
+export const getAllServices = async (req: Request, res: Response) => {
   try {
-    // Extract service ID from request parameters
-    const { serviceId } = req.params;
+    const { categoryId } = req.params;
 
-    // Example SQL query to delete a service from the database
-    const query = `DELETE FROM services WHERE id = ${serviceId}`;
+    // Get all services for the specified category
+    const services = await Service.findAll({ where: { categoryId } });
 
-    // Execute the SQL query
-    await executeQuery(query);
-
-    res.json({ message: 'Service deleted successfully' });
+    res.status(200).json({ services });
   } catch (error) {
-    console.error('Error deleting service:', error);
-    res.status(500).json({ message: 'Failed to delete service' });
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Controller function to remove a service from a category
+export const removeService = async (req: Request, res: Response) => {
+  try {
+    const { categoryId, serviceId } = req.params;
+
+    // Remove the service
+    await Service.destroy({ where: { id: serviceId, categoryId } });
+
+    res.status(200).json({ message: 'Service removed successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// Controller function to update a service in a category
+export const updateService = async (req: Request, res: Response) => {
+  try {
+    const { categoryId, serviceId } = req.params;
+    const { serviceName, type, priceOptions } = req.body;
+
+    // Update the service
+    const [updatedRows] = await Service.update(
+      { serviceName, type, priceOptions },
+      { where: { id: serviceId, categoryId } }
+    );
+
+    if (updatedRows === 0) {
+      return res.status(404).json({ message: 'Service not found' });
+    }
+
+    res.status(200).json({ message: 'Service updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

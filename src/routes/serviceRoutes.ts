@@ -1,21 +1,26 @@
-// src/routes/serviceRoutes.ts
+// serviceRoutes.ts
 
 import express from 'express';
-import { createService, getAllServices, updateService, deleteService } from '../controllers/serviceController';
+import { addServiceToCategory, getAllServices, updateService, removeService } from '../controllers/serviceController';
 import { authMiddleware } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
-// POST /service - Create a new service
-router.post('/', authMiddleware, createService);
+// Middleware to authenticate requests
+router.use(authMiddleware);
 
-// GET /service - Get all services
-router.get('/', getAllServices);
+// Add service route
+router.post('/:categoryId/service', addServiceToCategory);
 
-// PUT /service/:serviceId - Update a service by ID
-router.put('/:serviceId', authMiddleware, updateService);
+// Get all services route
+router.get('/:categoryId/services', getAllServices);
 
-// DELETE /service/:serviceId - Delete a service by ID
-router.delete('/:serviceId', authMiddleware, deleteService);
+// Update service route
+router.put('/:categoryId/service/:serviceId', updateService);
+
+// Remove service route
+router.delete('/:categoryId/service/:serviceId', removeService);
+
+// export default router;
 
 export { router as serviceRouter };
